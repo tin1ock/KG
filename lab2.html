@@ -1,0 +1,39 @@
+<HTML>
+<BODY>
+
+<canvas id='lab_02_01' height='408' width='488' style='border:1px solid'>
+</canvas>
+
+<canvas id='lab_02_02' height='408' width='488' style='border:1px solid'>
+</canvas>
+
+<a href='#' id='btn' class='button' >button</a>
+
+<script>
+    let canvas = document.getElementById('lab_02_01');
+    let ctx = canvas.getContext('2d');
+    let canvas2 = document.getElementById('lab_02_02');
+    let ctx2 = canvas2.getContext('2d');
+    let img = new Image();
+    img.src = 'test.png';
+    img.onload = function() {
+        ctx.drawImage(img, 0, 0);
+    };
+    let grayscale = function() {
+        let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        for(let i=0; i< imageData.data.length; i+=4){
+            let avg = (imageData.data[i] + imageData.data[i+1] + imageData.data[i+2]) / 3;
+            imageData.data[i] = avg;
+            imageData.data[i + 1] = avg;
+            imageData.data[i + 2] = avg;
+        }
+        ctx2.putImageData(imageData, 0, 0);
+    }
+    
+    let grayscalebtn = document.getElementById('btn');
+    grayscalebtn.addEventListener('click', grayscale);
+
+</script>
+
+</BODY>
+</HTML>

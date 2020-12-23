@@ -1,0 +1,55 @@
+<HTML>
+<BODY>
+<canvas id='homework_03' height='500' width='500' style='border:1px solid'>
+</canvas>
+
+<script>
+    let canvas = document.getElementById('homework_03');
+    let ctx = canvas.getContext('2d');
+	
+    function line(ctx,x1,y1,x2,y2){
+        let deltaX = Math.abs(x2 - x1);
+        let deltaY = Math.abs(y2 - y1);
+	let signX;
+	let signY;
+	let error = deltaX - deltaY;
+	if(x1 < x2)
+	    signX = 1;
+	else
+	    signX = -1;
+	if(y1 < y2)
+	    signY = 1;
+	else
+	    signY = -1;
+	while(x1 != x2 || y1 != y2) {
+	    ctx.fillRect(x1,y1,1,1);
+	    let error2 = error * 2;
+            if(error2 > -deltaY) {
+                error -= deltaY;
+	        x1 += signX;
+	    }
+	    if(error2 < deltaX) {
+	        error += deltaX;
+		y1 += signY;
+	    }
+        }
+    }
+
+    let flag=0;
+    canvas.addEventListener('click',function(e){
+        if(flag == 0){
+            x1=e.offsetX;
+	    y1=e.offsetY;
+            flag = 1;
+        } 
+        else {
+            x2=e.offsetX;
+            y2=e.offsetY;
+            line(ctx,x1,y1,x2,y2);
+            flag = 0;
+        }
+    });
+</script>
+
+</BODY>
+</HTML>

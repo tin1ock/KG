@@ -1,0 +1,67 @@
+<HTML>
+<BODY>
+
+<canvas id = 'lab_01' height = '300' widht = '500' style = 'border:1px solid'>
+</canvas>
+
+<script> 
+
+        var canvas = document.getElementById('lab_01');
+        console.log(canvas);
+        var ctx = canvas.getContext('2d');
+        console.log(ctx);
+        var x = canvas.width/2;
+        var y = canvas.height-30
+        var dy = -2;
+        var i = 1;
+        var flag = false;
+        var intervalID;
+        
+       
+        function drawSmile() {
+           ctx.beginPath();
+           ctx.moveTo(x, y);
+           ctx.lineTo(x + 20, y + 34);
+           ctx.lineTo(x, y + 34);
+           ctx.lineTo(x + 10, y + 17);
+           ctx.lineTo(x - 10, y + 17);
+           ctx.lineTo(x, y + 34);
+           ctx.lineTo(x - 20, y + 34);
+           ctx.lineTo(x, y);
+           ctx.fillStyle = "red"
+           ctx.fill()
+           ctx.stroke();
+        }
+
+        function motion() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawSmile();
+            if (y <= (canvas.height-30) && y >= 30 && i == 1) {
+                y += dy;
+            }
+            else {
+                y -= dy;
+                if ( y != (canvas.height-30))
+                    i = 0;
+                else 
+                    i = 1;
+            }  
+        }
+
+        drawSmile();
+        canvas.addEventListener('click', function(event){
+            if(flag == false){
+                intervalID = setInterval(motion,10);
+                flag = true;
+            }
+            else 
+            {
+             clearInterval(intervalID);
+             flag = false;
+            }
+        });
+        
+</script>
+        
+</BODY>        
+</HTML>
